@@ -21,7 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "vendedor")
 @NamedQueries({
-    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v")})
+    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
+    @NamedQuery(name = "Vendedor.findByName", query = "SELECT v FROM Vendedor v where v.nome like :nome")
+})
 public class Vendedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

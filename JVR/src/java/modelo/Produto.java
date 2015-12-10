@@ -15,7 +15,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "produto")
 @NamedQueries({
-    @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")})
+    @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p"),
+    @NamedQuery(name = "Produto.findByName", query = "SELECT p FROM Produto p where p.nomeProduto like :nome")
+})
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,14 +31,11 @@ public class Produto implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @Basic(optional = false)
-    @Column(name = "categoria")
-    private String categoria;
-    @Basic(optional = false)
     @Column(name = "nome_produto")
     private String nomeProduto;
     @JoinColumn(name = "id", referencedColumnName = "idcat")
     @ManyToOne(optional = false)
-    private Categoria id;
+    private Categoria categoria;
 
     public Produto() {
     }
@@ -45,11 +44,11 @@ public class Produto implements Serializable {
         this.idprod = idprod;
     }
 
-    public Produto(Long idprod, String tamanho, String descricao, String categoria, String nomeProduto) {
+    public Produto(Long idprod, String tamanho, String descricao,  String nomeProduto) {
         this.idprod = idprod;
         this.tamanho = tamanho;
         this.descricao = descricao;
-        this.categoria = categoria;
+       
         this.nomeProduto = nomeProduto;
     }
 
@@ -77,14 +76,6 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public String getNomeProduto() {
         return nomeProduto;
     }
@@ -93,12 +84,12 @@ public class Produto implements Serializable {
         this.nomeProduto = nomeProduto;
     }
 
-    public Categoria getId() {
-        return id;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setId(Categoria id) {
-        this.id = id;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
@@ -123,7 +114,7 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Produto[ idprod=" + idprod + " ]";
+        return idprod + " | " + nomeProduto;
     }
     
 }

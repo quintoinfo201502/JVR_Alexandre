@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import modelo.Vendedor;
 
 public class VendedorDAO {
@@ -47,6 +48,13 @@ public class VendedorDAO {
 
         return em.createNamedQuery("Vendedor.findAll").getResultList();
 
+    }
+    
+    public List<Vendedor> listar(String nome) throws Exception {
+        TypedQuery<Vendedor> query = em.createNamedQuery("Vendedor.findByName", Vendedor.class);
+        
+        query.setParameter("nome", '%' + nome + '%');
+        return query.getResultList();
     }
 
     public void alterar(Vendedor obj) throws Exception {

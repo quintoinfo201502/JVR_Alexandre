@@ -7,10 +7,10 @@
             <div class="form-group">
                 <label>Nome:</label>
                 <input type="text" class="form-control" placeholder="Nome" name="txtNome" /><br />
-            
+
                 <label>Identificador:</label>
                 <input type="long" class="form-control" placeholder="ID" name="txtId"/><br /> 
-                
+
                 <label>Descrição:</label>
                 <input type="text" class="form-control" placeholder="Descrição" name="txtDescricao"/><br />
             </div>

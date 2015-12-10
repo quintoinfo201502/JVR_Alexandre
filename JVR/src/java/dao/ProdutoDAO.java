@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import modelo.Produto;
 
 public class ProdutoDAO {
@@ -49,6 +50,13 @@ public class ProdutoDAO {
         
     }
     
+    public List<Produto> listar(String nome) throws Exception {
+        TypedQuery<Produto> query = em.createNamedQuery("Produto.findByName", Produto.class);
+        
+        query.setParameter("nome", '%' + nome + '%');
+        return query.getResultList();
+    }
+    
     public void alterar(Produto obj) throws Exception {
         
         try {
@@ -93,6 +101,10 @@ public class ProdutoDAO {
             
         }
         
+    }
+    
+    public Produto buscarPorChavePrimaria(Long chave){
+        return em.find(Produto.class, chave);
     }
     
     public void fechaEmf() {

@@ -24,7 +24,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "categoria")
 @NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c")})
+    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
+    @NamedQuery(name = "Categoria.findByName", query = "SELECT c FROM Categoria c where c.nomeCat like :nome")
+}) 
 public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,8 +39,7 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
-    private List<Produto> produtoList;
+   
 
     public Categoria() {
     }
@@ -77,13 +78,7 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Produto> getProdutoList() {
-        return produtoList;
-    }
-
-    public void setProdutoList(List<Produto> produtoList) {
-        this.produtoList = produtoList;
-    }
+   
 
     @Override
     public int hashCode() {
@@ -107,7 +102,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Categoria[ idcat=" + idcat + " ]";
+        return idcat + " | " + nomeCat;
     }
     
 }
