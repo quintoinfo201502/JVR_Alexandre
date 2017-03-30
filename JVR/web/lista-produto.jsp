@@ -4,28 +4,28 @@
 <%@include file="cabecalho.jsp" %>
 <%
     ProdutoDAO dao = new ProdutoDAO();
-    
+
     List<Produto> lista;
-    
-    if(request.getParameter("txtFiltro")!=null && request.getParameter("txtFiltro")!=""){
+
+    if (request.getParameter("txtFiltro") != null && request.getParameter("txtFiltro") != "") {
         String txtFiltro = request.getParameter("txtFiltro");
         lista = dao.listar(txtFiltro);
-    }
-    else{
+    } else {
         lista = dao.listar();
     }
 %>
+
 <div class="container">
     <h1 class="center-block">Lista de Produtos</h1>
 
     <div>
         <a href="produto.jsp">Voltar</a> <br />
-        <div class="form-group">
-        <form action="lista-produto.jsp" method="post">
-            <input type="text" name="txtFiltro" />
-            <input type="submit" class="btn btn-default" value="Pesquisar" /> <br />
-        </form>
-        </div>
+        
+            <form action="lista-produto.jsp" method="post">
+                <input type="text" name="txtFiltro" />
+                <input type="submit" class="btn btn-default" value="Pesquisar" /> <br />
+            </form>
+        
         <br />
             <table class="table table-bordered">
                 <tr>
@@ -34,11 +34,11 @@
                     <th>Tamanho</th>
                     <th>Descrição</th>
                     <th>Categoria</th>
-                    
+
                     <th>Ações</th>
                 </tr>
                 <%
-                   for (Produto item : lista){
+                    for (Produto item : lista) {
                 %>
                 <tr>
                     <td><%=item.getIdprod()%></td>
@@ -55,7 +55,7 @@
                     }
                 %>
             </table>
-        
+
     </div>
 </div>
 
