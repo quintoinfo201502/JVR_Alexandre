@@ -22,9 +22,14 @@ import javax.persistence.Table;
 @Table(name = "vendedor")
 @NamedQueries({
     @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
-    @NamedQuery(name = "Vendedor.findByName", query = "SELECT v FROM Vendedor v where v.nome like :nome")
-})
+    @NamedQuery(name = "Vendedor.findByName", query = "SELECT v FROM Vendedor v where v.nome like :nome"),
+    @NamedQuery(name = "Vendedor.realizarLogin", query = "SELECT v FROM Vendedor v where v.nome=:nome and v.senha=:senha"),
+    @NamedQuery(name = "Vendedor.findByIdvendedor", query = "SELECT v FROM Vendedor v WHERE v.idvendedor = :idvendedor"),
+    @NamedQuery(name = "Vendedor.findByNome", query = "SELECT v FROM Vendedor v WHERE v.nome = :nome"),
+    @NamedQuery(name = "Vendedor.findBySenha", query = "SELECT v FROM Vendedor v WHERE v.senha = :senha"),
+    @NamedQuery(name = "Vendedor.findByEmail", query = "SELECT v FROM Vendedor v WHERE v.email = :email")})
 public class Vendedor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -34,8 +39,8 @@ public class Vendedor implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
-    @Column(name = "fone")
-    private String fone;
+    @Column(name = "senha")
+    private String senha;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
@@ -47,10 +52,10 @@ public class Vendedor implements Serializable {
         this.idvendedor = idvendedor;
     }
 
-    public Vendedor(Long idvendedor, String nome, String fone, String email) {
+    public Vendedor(Long idvendedor, String nome, String senha, String email) {
         this.idvendedor = idvendedor;
         this.nome = nome;
-        this.fone = fone;
+        this.senha = senha;
         this.email = email;
     }
 
@@ -70,12 +75,12 @@ public class Vendedor implements Serializable {
         this.nome = nome;
     }
 
-    public String getFone() {
-        return fone;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getEmail() {
@@ -110,5 +115,5 @@ public class Vendedor implements Serializable {
     public String toString() {
         return "modelo.Vendedor[ idvendedor=" + idvendedor + " ]";
     }
-    
+
 }

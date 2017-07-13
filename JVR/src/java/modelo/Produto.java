@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package modelo;
 
 import java.io.Serializable;
@@ -12,13 +16,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author alexandre
+ */
 @Entity
 @Table(name = "produto")
 @NamedQueries({
     @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p"),
-    @NamedQuery(name = "Produto.findByName", query = "SELECT p FROM Produto p where p.nomeProduto like :nome")
-})
+    @NamedQuery(name = "Produto.findByName", query = "SELECT p FROM Produto p where p.nomeProduto like :nome"),
+    @NamedQuery(name = "Produto.findByIdprod", query = "SELECT p FROM Produto p WHERE p.idprod = :idprod"),
+    @NamedQuery(name = "Produto.findByTamanho", query = "SELECT p FROM Produto p WHERE p.tamanho = :tamanho"),
+    @NamedQuery(name = "Produto.findByDescricao", query = "SELECT p FROM Produto p WHERE p.descricao = :descricao"),
+    @NamedQuery(name = "Produto.findByNomeProduto", query = "SELECT p FROM Produto p WHERE p.nomeProduto = :nomeProduto")})
 public class Produto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -33,9 +45,9 @@ public class Produto implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome_produto")
     private String nomeProduto;
-    @JoinColumn(name = "id", referencedColumnName = "idcat")
+    @JoinColumn(name = "idcat", referencedColumnName = "idcat")
     @ManyToOne(optional = false)
-    private Categoria categoria;
+    private Categoria idcat;
 
     public Produto() {
     }
@@ -44,11 +56,10 @@ public class Produto implements Serializable {
         this.idprod = idprod;
     }
 
-    public Produto(Long idprod, String tamanho, String descricao,  String nomeProduto) {
+    public Produto(Long idprod, String tamanho, String descricao, String nomeProduto) {
         this.idprod = idprod;
         this.tamanho = tamanho;
         this.descricao = descricao;
-       
         this.nomeProduto = nomeProduto;
     }
 
@@ -84,12 +95,12 @@ public class Produto implements Serializable {
         this.nomeProduto = nomeProduto;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Categoria getIdcat() {
+        return idcat;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setIdcat(Categoria idcat) {
+        this.idcat = idcat;
     }
 
     @Override
@@ -114,7 +125,7 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return idprod + " | " + nomeProduto;
+        return "modelo.Produto[ idprod=" + idprod + " ]";
     }
-    
+
 }

@@ -103,6 +103,23 @@ public class VendedorDAO {
 
     }
     
+    public Vendedor realizarLogin(String nome, String senha){
+        TypedQuery<Vendedor> query =
+                em.createNamedQuery("Vendedor.realizarLogin", Vendedor.class);
+        
+        query.setParameter("nome", nome);
+        query.setParameter("senha", senha);
+        Vendedor util;
+        try {
+            util = query.getSingleResult();
+        } catch(Exception e){
+            util = null;
+        }
+        
+        return util;
+    }
+    
+    
     public Vendedor buscarPorChavePrimaria(Long chave){
         return em.find(Vendedor.class, chave);
     }

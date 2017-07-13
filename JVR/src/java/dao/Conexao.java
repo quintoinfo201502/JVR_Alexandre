@@ -13,7 +13,7 @@ public  class Conexao {
 
     public static EntityManagerFactory getConexao() throws Exception {
         if ((emf == null) || (!emf.isOpen())) {
-             emf = Persistence.createEntityManagerFactory("jv_representacoesPU");
+             emf = Persistence.createEntityManagerFactory("JVRPU");
         }
         return emf;
     }  

@@ -25,9 +25,12 @@ import javax.persistence.Table;
 @Table(name = "categoria")
 @NamedQueries({
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByName", query = "SELECT c FROM Categoria c where c.nomeCat like :nome")
-}) 
+    @NamedQuery(name = "Categoria.findByName", query = "SELECT c FROM Categoria c where c.nomeCat like :nome"),
+    @NamedQuery(name = "Categoria.findByIdcat", query = "SELECT c FROM Categoria c WHERE c.idcat = :idcat"),
+    @NamedQuery(name = "Categoria.findByNomeCat", query = "SELECT c FROM Categoria c WHERE c.nomeCat = :nomeCat"),
+    @NamedQuery(name = "Categoria.findByDescricao", query = "SELECT c FROM Categoria c WHERE c.descricao = :descricao")})
 public class Categoria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -39,7 +42,8 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-   
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcat")
+    private List<Produto> produtoList;
 
     public Categoria() {
     }
@@ -78,7 +82,13 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-   
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
+
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
+    }
 
     @Override
     public int hashCode() {
@@ -102,7 +112,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return idcat + " | " + nomeCat;
+        return nomeCat + " | " + idcat;
     }
-    
+
 }
